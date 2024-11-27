@@ -4,7 +4,7 @@ import type { NewDeal } from '@/app/store/store'
 export const dealService = {
   getDeals: async (token: string) => {
     try {      
-      const response = await strapiClient.get('/api/users/me?populate[Deals][populate][Company][populate]=Logo&status=published', {
+      const response = await strapiClient.get('/api/users/me?populate[deals][populate][Company][populate]=Logo&status=published', {
         headers: {
           Authorization: `Bearer ${token.replace('Bearer ', '')}`
         }
