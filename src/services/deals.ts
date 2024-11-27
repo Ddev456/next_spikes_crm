@@ -10,7 +10,7 @@ export const dealService = {
         }
       })
       
-      return response.data.Deals || []
+      return response.data.Deals
     } catch (error) {
       throw new Error(`An error occurred while fetching deals: ${error}`)
     }
