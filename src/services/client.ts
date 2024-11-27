@@ -64,15 +64,13 @@ export const clientService = {
     try {
       // 2. Récupérer tous les deals de l'utilisateur
       const dealsResponse = await strapiClient.get(
-        "/api/users/me?populate[Deals][populate][Company][populate]=Logo&status=published", 
+        "/api/users/me?populate[deals][populate][Company][populate]=Logo&status=published", 
         {
           headers: {
             Authorization: `Bearer ${token.replace('Bearer ', '')}`
           }
         }
       );
-      console.log("documentId", documentId)
-      console.log("dealsResponse.data doc ID", dealsResponse.data)
       // 3. Filtrer les deals associés au client à supprimer
       const dealsToDelete = dealsResponse.data.Deals.filter(
         (deal: ClientToDelete) => deal.Company.documentId === documentId

@@ -67,7 +67,9 @@ export const useDealStore = create<DealStore>((set) => ({
     try {
       set({ isLoading: true, error: null });
       const response = await dealService.createDeal({deal: newDeal, token});
-      set((state) => ({ deals: [...state.deals, response.data] }));
+      set((state) => ({ 
+        deals: Array.isArray(state.deals) ? [...state.deals, response.data] : [response.data]
+      }));
     } catch (error) {
       set({ error: error as Error });
       throw error;
