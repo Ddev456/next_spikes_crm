@@ -50,7 +50,7 @@ export function DataTable<TData extends { documentId: string }, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const deals = useDealStore((state) => state.deals);
+  const { deals = [] } = useDealStore();
   const { toast } = useToast();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

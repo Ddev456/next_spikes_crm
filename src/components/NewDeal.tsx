@@ -68,7 +68,7 @@ export function NewDeal() {
 
   const { toast } = useToast();
   const [open, setOpen] = React.useState(false);
-  const { addDeal, deals } = useDealStore();
+  const { addDeal, deals = [] } = useDealStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

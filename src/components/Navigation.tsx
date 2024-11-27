@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Statue, useDealStore } from "@/app/store/store";
 
 export const Navigation = () => {
-  const { deals } = useDealStore();
+  const { deals = [] } = useDealStore();
 
   const tabs = [
     {
@@ -15,22 +15,22 @@ export const Navigation = () => {
     {
       name: "Completed",
       value: Statue.completed,
-      quantity: deals.filter((deal) => deal.Statue === Statue.completed).length,
+      quantity: deals?.filter((deal) => deal.Statue === Statue.completed)?.length || 0,
     },
     {
       name: "Pending",
       value: Statue.pending,
-      quantity: deals.filter((deal) => deal.Statue === Statue.pending).length,
+      quantity: deals?.filter((deal) => deal.Statue === Statue.pending)?.length || 0,
     },
     {
       name: "Ongoing",
       value: Statue.ongoing,
-      quantity: deals.filter((deal) => deal.Statue === Statue.ongoing).length,
+      quantity: deals?.filter((deal) => deal.Statue === Statue.ongoing)?.length || 0,
     },
     {
       name: "Waiting for confirmation",
       value: Statue.waiting,
-      quantity: deals.filter((deal) => deal.Statue === Statue.waiting).length,
+      quantity: deals?.filter((deal) => deal.Statue === Statue.waiting)?.length || 0,
     },
   ];
 
@@ -40,12 +40,12 @@ export const Navigation = () => {
     setActiveTab(tab);
   };
 
-  const filteredDeals = deals.filter((deal) => {
+  const filteredDeals = deals?.filter((deal) => {
     if (activeTab === "all") {
-      return true; // Return true for all deals
+      return true;
     }
-    return activeTab === deal.Statue; // Filter based on active tab
-  });
+    return activeTab === deal.Statue;
+  }) || [];
 
   return (
     <div className="mt-[34px] flex gap-[36px]">

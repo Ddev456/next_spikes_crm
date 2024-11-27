@@ -24,13 +24,13 @@ export const MobileSidebar = () => {
   const { deals } = useDealStore((state) => ({
     deals: state.deals,
   }));
-  const [progressQuantity, setProgressQuantity] = useState(13 - deals.length);
-  const [progress, setProgress] = useState((deals.length / 13) * 100);
+  const [progressQuantity, setProgressQuantity] = useState(13 - (deals?.length || 0));
+  const [progress, setProgress] = useState(((deals?.length || 0) / 13) * 100);
 
   useEffect(() => {
-    setProgress((deals.length / 13) * 100);
-    setProgressQuantity(13 - deals.length);
-  }, [deals.length]);
+    setProgress(((deals?.length || 0) / 13) * 100);
+    setProgressQuantity(13 - (deals?.length || 0));
+  }, [deals?.length]);
   return (
     <aside className="h-full flex flex-col justify-around w-[350px] bg-background">
       <div className="w-full aside_links flex flex-col">
