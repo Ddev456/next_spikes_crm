@@ -6,9 +6,11 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <>
-    <Sidebar />
-    <MobileNav />
-    {children}
-  </>
+  return (
+    <div className="flex">
+      <Sidebar />
+      <MobileNav />
+      {children}
+    </div>
+  )
 }
