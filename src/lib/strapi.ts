@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 const strapiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_STRAPI_URL,
+  baseURL: process.env.NEXT_PUBLIC_STRAPI_URL?.startsWith('http') 
+    ? process.env.NEXT_PUBLIC_STRAPI_URL 
+    : `https://${process.env.NEXT_PUBLIC_STRAPI_URL}`,
   headers: {
     'Content-Type': 'application/json',
   },
