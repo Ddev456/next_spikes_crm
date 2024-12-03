@@ -34,6 +34,11 @@ export const DealsSection = () => {
     return activeTab === deal.Statue;
   }) || [];
 
+  const filteredDealsWithLogo = filteredDeals.map((deal) => ({
+    ...deal,
+    Logo: { url: deal.Company?.Logo.url || "" },
+  }));
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -59,7 +64,7 @@ export const DealsSection = () => {
               </TabsList>
             </div>
             <TabsContent value="all">
-              <DealsTable deals={filteredDeals} />
+              <DealsTable deals={filteredDealsWithLogo} />
             </TabsContent>
           </Tabs>
         </div>
