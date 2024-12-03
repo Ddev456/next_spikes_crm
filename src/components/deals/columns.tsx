@@ -21,7 +21,7 @@ import Image from "next/image";
   };
 }; */
 
-type DealWithLogo = Deal & {
+export type DealWithLogo = Deal & {
   Logo: {
     url: string;
   };

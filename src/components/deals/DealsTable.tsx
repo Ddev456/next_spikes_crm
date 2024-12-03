@@ -1,13 +1,12 @@
 "use client";
 
-import type { Deal } from "@/app/store/store";
 import { DataTable } from "./data-table";
-import { columns } from "./columns";
+import { columns, type DealWithLogo } from "./columns";
 
 interface DealsTableProps {
-  deals: Deal[];
+  deals: DealWithLogo[];
 }
 
 export const DealsTable = ({ deals }: DealsTableProps) => {
-  return <DataTable columns={columns} data={deals} />;
+  return <DataTable<DealWithLogo, unknown> columns={columns} data={deals} />;
 };
