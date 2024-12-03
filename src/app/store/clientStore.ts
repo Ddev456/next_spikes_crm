@@ -14,7 +14,7 @@ export interface Client {
 
 export interface NewClient {
   Company: string;
-  logo?: Blob | null;
+  logo?: File | null;
 }
 
 interface ClientStore {

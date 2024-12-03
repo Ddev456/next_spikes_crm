@@ -4,15 +4,20 @@ import type { NewDeal } from '@/app/store/store'
 export const dealService = {
   getDeals: async (token: string) => {
     try {      
-      const response = await strapiClient.get('/api/users/me?populate[deals][populate][Company][populate]=Logo&status=published', {
+      const response = await strapiClient.get('/api/users/me?populate[deals][populate]=*', {
         headers: {
           Authorization: `Bearer ${token.replace('Bearer ', '')}`
         }
-      })
+      });
       
-      return response.data.Deals
+      console.log('API Response:', response.data); // Debug
+      
+      // Vérifier la structure de la réponse
+      const deals = response.data?.deals || [];
+      return deals;
     } catch (error) {
-      throw new Error(`An error occurred while fetching deals: ${error}`)
+      console.error('Error details:', error);
+      throw new Error(`An error occurred while fetching deals: ${error}`);
     }
   },
 
@@ -25,7 +30,7 @@ export const dealService = {
     
     const userId = userResponse.data.id;
 
-    const response = await strapiClient.post('/api/deals?populate[Company][populate]=Logo', { 
+    const response = await strapiClient.post('/api/deals?populate=*', { 
       data: {
         ...deal,
         Company: deal.Company,

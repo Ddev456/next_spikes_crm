@@ -43,7 +43,7 @@ import Image from "next/image";
 
 const formSchema = z.object({
   Company: z.string().min(1, "Company name is required"),
-  Logo: z.instanceof(Blob).optional(),
+  Logo: z.instanceof(File).optional(),
 });
 
 export function NewClient() {
@@ -185,12 +185,11 @@ function ClientForm({ className, handleSubmit, form }: ClientFormProps) {
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) {
-                          const blob = new Blob([file], { type: file.type });
-                          onChange(blob);
+                          onChange(file);
                           if (previewUrl) {
                             URL.revokeObjectURL(previewUrl);
                           }
-                          const url = URL.createObjectURL(blob);
+                          const url = URL.createObjectURL(file);
                           setPreviewUrl(url);
                         }
                       }}

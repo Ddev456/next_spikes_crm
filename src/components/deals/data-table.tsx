@@ -50,7 +50,8 @@ export function DataTable<TData extends { documentId: string }, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const { deals = [] } = useDealStore();
+  console.log("DataTable received data:", data); // Debug
+  
   const { toast } = useToast();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -83,9 +84,8 @@ export function DataTable<TData extends { documentId: string }, TValue>({
     },
   });
 
-  /* get all objects from data */
-  const objectsFromDeals = deals.map((deal) => {
-    return deal.Object;
+  const objectsFromDeals = data.map((deal) => {
+    return deal.Object ?? "";
   });
 
   const uniqueObjectValues = [...new Set(objectsFromDeals)];
@@ -167,12 +167,12 @@ export function DataTable<TData extends { documentId: string }, TValue>({
                 <Search className="mr-2 shrink-0 h-[13px] w-[13px]" />
                 <Input
                   value={
-                    (table.getColumn("object")?.getFilterValue() as string) ??
+                    (table.getColumn("Object")?.getFilterValue() as string) ??
                     ""
                   }
                   onChange={(event) =>
                     table
-                      .getColumn("object")
+                      .getColumn("Object")
                       ?.setFilterValue(event.target.value)
                   }
                   className={cn(
@@ -184,10 +184,10 @@ export function DataTable<TData extends { documentId: string }, TValue>({
 
               <Select
                 value={
-                  (table.getColumn("object")?.getFilterValue() as string) ?? ""
+                  (table.getColumn("Object")?.getFilterValue() as string) ?? ""
                 }
                 onValueChange={(event: string) =>
-                  table.getColumn("object")?.setFilterValue(event)
+                  table.getColumn("Object")?.setFilterValue(event)
                 }
               >
                 <SelectTrigger className="w-24 h-8 bg-white">
@@ -203,10 +203,10 @@ export function DataTable<TData extends { documentId: string }, TValue>({
               </Select>
               <Select
                 value={
-                  (table.getColumn("company")?.getFilterValue() as string) ?? ""
+                  (table.getColumn("Company")?.getFilterValue() as string) ?? ""
                 }
                 onValueChange={(event: string) => {
-                  table.getColumn("company")?.setFilterValue(event);
+                  table.getColumn("Company")?.setFilterValue(event);
                 }}
               >
                 <SelectTrigger className="w-[102px] h-8 bg-white">
@@ -225,15 +225,15 @@ export function DataTable<TData extends { documentId: string }, TValue>({
               </Select>
               <Select
                 value={
-                  (table.getColumn("statue")?.getFilterValue() as string) ?? ""
+                  (table.getColumn("Statue")?.getFilterValue() as string) ?? ""
                 }
                 onValueChange={(event: string) => {
                   const selectedValue = event.toString();
 
                   if (selectedValue === "All") {
-                    table.getColumn("statue")?.setFilterValue("");
+                    table.getColumn("Statue")?.setFilterValue("");
                   } else {
-                    table.getColumn("statue")?.setFilterValue(selectedValue);
+                    table.getColumn("Statue")?.setFilterValue(selectedValue);
                   }
                   /*                 table.getColumn("statue")?.setFilterValue(event)
                    */

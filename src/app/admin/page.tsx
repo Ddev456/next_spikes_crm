@@ -1,9 +1,7 @@
 "use client";
 
-import { Dashboard } from "@/components/Dashboard";
+import { DealsSection } from "@/components/deals/DealsSection";
 
 export default function Home() {
-  return (
-    <Dashboard />
-  );
+  return <DealsSection />;
 }

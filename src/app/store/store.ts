@@ -55,8 +55,10 @@ export const useDealStore = create<DealStore>((set) => ({
     try {
       set({ isLoading: true, error: null });
       const deals = await dealService.getDeals(token);
-      set({ deals });
+      console.log("Deals from API:", deals); // Debug
+      set({ deals: Array.isArray(deals) ? deals : [] });
     } catch (error) {
+      console.error("Store fetchDeals error:", error);
       set({ error: error as Error });
     } finally {
       set({ isLoading: false });

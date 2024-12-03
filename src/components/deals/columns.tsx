@@ -21,7 +21,13 @@ import Image from "next/image";
   };
 }; */
 
-export const columns: ColumnDef<Deal>[] = [
+type DealWithLogo = Deal & {
+  Logo: {
+    url: string;
+  };
+};
+
+export const columns: ColumnDef<DealWithLogo>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -49,7 +55,7 @@ export const columns: ColumnDef<Deal>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "add",
+    accessorKey: "Add",
     header: ({ column }) => {
       return (
         <Button
@@ -78,7 +84,7 @@ export const columns: ColumnDef<Deal>[] = [
     },
   },
   {
-    accessorKey: "object",
+    accessorKey: "Object",
     header: () => (
       <div className="hidden md:flex lg:px-[24px] py-[12px]">Object</div>
     ),
@@ -93,33 +99,39 @@ export const columns: ColumnDef<Deal>[] = [
     },
   },
   {
-    accessorKey: "company",
+    accessorKey: "Company",
     header: () => (
       <div className="font-medium text-[12px] leading-[18px] lg:px-[24px] py-[12px]">
         Company
       </div>
     ),
     cell: ({ row }) => {
-      const companyName = row.original.Company.Company;
-      const logoUrl = row.original.Company.Logo?.url;
+      const name = row.original.Company;
+      const logoUrl = row.original.Logo?.url;
       
       return (
         <div className="flex text-[#344054] font-medium text-[14px] gap-[12px] lg:px-[24px] py-[12px] items-center">
           {logoUrl ? (
             <Image 
               src={logoUrl}
-              alt={companyName}
+              alt="Logo"
               width={24}
               height={24}
-              className="rounded-full"
+              className="rounded-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/fallback-image.png"; // Ajoutez une image par défaut
+              }}
             />
           ) : (
-            <div className="w-6 h-6 bg-gray-200 rounded-full" />
+            <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center">
+              <span className="text-xs text-gray-500">{name.Company.charAt(0)}</span>
+            </div>
           )}
-          <span>{companyName}</span>
+          <span>{name.Company}</span>
         </div>
       );
-    },
+    }
   },
   {
     accessorKey: "Statue",
