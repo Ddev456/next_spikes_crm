@@ -41,12 +41,12 @@ import type { Company } from "@/types/company";
 import { getToken } from "@/app/actions/deals";
 import { getCompanies } from "@/services/companies";
 
-interface DataTableProps<TData extends { documentId: string }, TValue> {
+interface DataTableProps<TData extends { documentId: string; Object?: string }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData extends { documentId: string }, TValue>({
+export function DataTable<TData extends { documentId: string; Object?: string }, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
